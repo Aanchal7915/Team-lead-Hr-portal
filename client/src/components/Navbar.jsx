@@ -94,8 +94,8 @@ const Navbar = ({ title = 'Dashboard', onMenuToggle = () => { }, isPublicPage = 
             </div>
 
             <div className="navbar-right">
-                {user ? (
-                    <>
+                {user && (
+                    <div className="navbar-user-controls">
                         <div className="notification-wrapper" ref={notificationRef}>
                             <button
                                 className="navbar-icon-btn"
@@ -168,22 +168,51 @@ const Navbar = ({ title = 'Dashboard', onMenuToggle = () => { }, isPublicPage = 
                         <button className="navbar-icon-btn" onClick={handleLogout} title="Logout">
                             <LogOut size={20} />
                         </button>
-                    </>
-                ) : (
-                    <div className="public-nav-wrapper" ref={mobileMenuRef}>
-                        <div className={`auth-buttons ${showMobileMenu ? 'show' : ''}`}>
-                            <button onClick={() => { navigate('/login'); setShowMobileMenu(false); }} className="nav-login-btn">Login</button>
-                            <button onClick={() => { navigate('/register'); setShowMobileMenu(false); }} className="nav-register-btn">Sign Up</button>
-                        </div>
-                        <button 
-                            className="public-hamburger-btn" 
-                            onClick={() => setShowMobileMenu(!showMobileMenu)}
-                            aria-label="Toggle menu"
-                        >
-                            <Menu size={24} />
-                        </button>
                     </div>
                 )}
+
+                <div className="mobile-nav-wrapper" ref={mobileMenuRef}>
+                    <div className={`mobile-dropdown ${showMobileMenu ? 'show' : ''}`}>
+                        {user ? (
+                            <>
+                                <div className="mobile-user-info">
+                                    <div className="navbar-profile-avatar">
+                                        {user?.avatar ? (
+                                            <img src={user.avatar} alt="Avatar" style={{ width: '100%', height: '100%', borderRadius: '50%' }} />
+                                        ) : (
+                                            getInitials(userName)
+                                        )}
+                                    </div>
+                                    <div className="navbar-profile-info" style={{ display: 'flex' }}>
+                                        <span>{userName}</span>
+                                        <span>{userTitle}</span>
+                                    </div>
+                                </div>
+                                <button onClick={() => { navigate('/sales'); setShowMobileMenu(false); }} className="nav-mobile-item">
+                                    <Bell size={18} /> Notifications
+                                </button>
+                                <button onClick={() => { navigate('/settings'); setShowMobileMenu(false); }} className="nav-mobile-item">
+                                    <ChevronDown size={18} /> Profile Settings
+                                </button>
+                                <button onClick={() => { handleLogout(); setShowMobileMenu(false); }} className="nav-mobile-item logout">
+                                    <LogOut size={18} /> Logout
+                                </button>
+                            </>
+                        ) : (
+                            <>
+                                <button onClick={() => { navigate('/login'); setShowMobileMenu(false); }} className="nav-login-btn">Login</button>
+                                <button onClick={() => { navigate('/register'); setShowMobileMenu(false); }} className="nav-register-btn" style={{ marginTop: '8px' }}>Sign Up</button>
+                            </>
+                        )}
+                    </div>
+                    <button 
+                        className="mobile-hamburger-btn" 
+                        onClick={() => setShowMobileMenu(!showMobileMenu)}
+                        aria-label="Toggle menu"
+                    >
+                        <Menu size={24} />
+                    </button>
+                </div>
             </div>
 
             <style>{`
@@ -281,68 +310,101 @@ const Navbar = ({ title = 'Dashboard', onMenuToggle = () => { }, isPublicPage = 
                     cursor: pointer;
                     color: var(--primary-100);
                 }
-                .auth-buttons {
+
+                .navbar-user-controls {
                     display: flex;
-                    gap: 12px;
+                    align-items: center;
+                    gap: 16px;
+                }
+                .mobile-nav-wrapper {
+                    display: none;
+                    position: relative;
+                }
+                .mobile-hamburger-btn {
+                    background: none;
+                    border: none;
+                    color: var(--primary-100);
+                    cursor: pointer;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    padding: 8px;
+                    border-radius: 50%;
+                    transition: all 0.2s;
+                }
+                .mobile-hamburger-btn:hover {
+                    background: rgba(255, 255, 255, 0.1);
                 }
                 
-                .public-hamburger-btn {
+                .mobile-dropdown {
                     display: none;
+                    position: absolute;
+                    top: 100%;
+                    right: 0;
+                    background: var(--primary-brand);
+                    flex-direction: column;
+                    padding: 15px;
+                    border-radius: 12px;
+                    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+                    border: 1px solid rgba(255,255,255,0.1);
+                    gap: 8px;
+                    min-width: 200px;
+                    z-index: 1000;
+                    margin-top: 10px;
+                }
+                .mobile-dropdown.show {
+                    display: flex;
+                }
+                
+                .mobile-user-info {
+                    display: flex;
+                    align-items: center;
+                    gap: 12px;
+                    padding: 8px;
+                    margin-bottom: 8px;
+                    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+                }
+                .nav-mobile-item {
+                    width: 100%;
+                    padding: 10px 12px;
+                    text-align: left;
+                    background: none;
+                    border: none;
+                    color: var(--primary-100);
+                    font-size: 0.95rem;
+                    cursor: pointer;
+                    border-radius: var(--radius-md);
+                    transition: all 0.2s;
+                    display: flex;
+                    align-items: center;
+                    gap: 10px;
+                }
+                .nav-mobile-item:hover {
+                    background: rgba(255, 255, 255, 0.1);
+                    color: white;
+                }
+                .nav-mobile-item.logout {
+                    color: #ff5252;
+                    margin-top: 5px;
+                    border-top: 1px solid rgba(255, 255, 255, 0.1);
+                    padding-top: 15px;
                 }
 
                 @media (max-width: 768px) {
                     .hamburger-btn {
-                        display: block;
+                        display: none !important;
                     }
-                    .public-hamburger-btn {
-                        display: block !important;
+                    .navbar-user-controls {
+                        display: none;
+                    }
+                    .mobile-nav-wrapper {
+                        display: block;
                     }
                     .navbar-profile-info {
                         display: none;
                     }
                     .navbar-logo-container span {
                         font-size: 1rem !important;
-                        white-space: nowrap;
-                    }
-                    .navbar-logo-container {
-                        gap: 10px !important;
-                    }
-                    .navbar-icon-btn, .navbar-profile-avatar, .navbar-profile > svg {
-                        display: ${user && !isPublicPage ? 'flex' : 'none'} !important;
-                    }
-                    .navbar-right {
-                        gap: 12px;
-                    }
-                    .navbar-profile {
-                        gap: 4px;
-                        padding: 2px 4px;
-                        display: ${user && !isPublicPage ? 'flex' : 'none'} !important;
-                    }
-                    .auth-buttons {
-                        display: none;
-                        position: absolute;
-                        top: 100%;
-                        right: 24px;
-                        background: var(--primary-brand);
-                        flex-direction: column;
-                        padding: 15px;
-                        border-radius: 12px;
-                        box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-                        border: 1px solid rgba(255,255,255,0.1);
-                        gap: 12px !important;
-                        min-width: 150px;
-                        z-index: 1000;
-                    }
-                    .auth-buttons.show {
-                        display: flex;
-                    }
-                    .public-hamburger-btn {
-                        display: block;
-                        background: none;
-                        border: none;
-                        color: var(--primary-100);
-                        cursor: pointer;
-                        padding: 5px;
                     }
                     .navbar-left {
                         gap: 8px;
@@ -350,12 +412,14 @@ const Navbar = ({ title = 'Dashboard', onMenuToggle = () => { }, isPublicPage = 
                 }
                 
                 .nav-login-btn, .nav-register-btn {
-                    padding: 8px 16px;
+                    padding: 10px 16px;
                     border-radius: 50px;
                     font-weight: 600;
                     font-size: 0.9rem;
                     cursor: pointer;
                     transition: all 0.3s ease;
+                    width: 100%;
+                    text-align: center;
                 }
                 .nav-login-btn {
                     background: transparent;
