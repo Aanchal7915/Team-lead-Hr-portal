@@ -130,7 +130,7 @@ const Sidebar = ({ isOpen, onClose }) => {
     });
 
   const displayMenuItems = [...baseDisplayMenuItems];
-  if (isEmployee || isHr || isAdmin) {
+  if ((isEmployee || isHr) && !isAdmin) {
     displayMenuItems.push(hrPortalItem);
   }
   if (isAdmin || isHr) {
