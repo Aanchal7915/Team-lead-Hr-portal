@@ -181,17 +181,18 @@ const AttendanceDashboard = () => {
         return monthMatch && yearMatch;
     });
 
-    if (isMobile) {
-        return (
-            <div className="flex flex-col items-center justify-center min-h-screen text-center p-6 bg-[#fff5e6] dark:bg-gray-900">
-                <div className="bg-white p-8 rounded-3xl shadow-xl max-w-sm">
-                    <div className="text-red-500 text-6xl mb-4 text-center flex justify-center">🚫</div>
-                    <h1 className="text-2xl font-bold text-[#433020] mb-4">Access Restricted</h1>
-                    <p className="text-[#8a6144]">The Employee Dashboard is restricted on mobile devices.</p>
-                </div>
-            </div>
-        );
-    }
+    // Removed mobile restriction to allow access on all devices
+    // if (isMobile) {
+    //     return (
+    //         <div className="flex flex-col items-center justify-center min-h-screen text-center p-6 bg-[#fff5e6] dark:bg-gray-900">
+    //             <div className="bg-white p-8 rounded-3xl shadow-xl max-w-sm">
+    //                 <div className="text-red-500 text-6xl mb-4 text-center flex justify-center">🚫</div>
+    //                 <h1 className="text-2xl font-bold text-[#433020] mb-4">Access Restricted</h1>
+    //                 <p className="text-[#8a6144]">The Employee Dashboard is restricted on mobile devices.</p>
+    //             </div>
+    //         </div>
+    //     );
+    // }
 
     if (loading) return (
         <Layout title="Attendance Dashboard" noPadding={true}>
