@@ -130,6 +130,7 @@ import Spinner from '../components/Spinner.jsx';
 import EditEmployeeModal from "../components/EditEmployeeModal.jsx";
 import { formatDate } from '../utils/formatDate.js';
 import Button from '../components/Button.jsx';
+import { useNavigate } from 'react-router-dom';
 
 const EmployeeCard = ({ employee, onEdit, onDelete }) => {
     return (
@@ -198,6 +199,7 @@ const EmployeeCard = ({ employee, onEdit, onDelete }) => {
 };
 
 const ManageEmployeesPage = () => {
+    const navigate = useNavigate();
     const [employees, setEmployees] = useState([]);
     const [loading, setLoading] = useState(true);
     const [searchTerm, setSearchTerm] = useState('');
@@ -252,6 +254,17 @@ const ManageEmployeesPage = () => {
 
     return (
         <div className="min-h-screen bg-gradient-to-br from-[#fff5e6] via-[#f5e6d3] to-[#fff5e6] dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 p-6 space-y-8 transition-colors duration-300">
+            <div className="max-w-7xl mx-auto w-full">
+                <button 
+                    onClick={() => navigate(-1)} 
+                    className="flex items-center gap-2 px-4 py-2 text-sm font-semibold border-2 border-[#8a6144]/30 text-[#8a6144] hover:bg-[#8a6144] hover:text-white transition-all duration-300 rounded-xl bg-white/50 backdrop-blur-sm"
+                >
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                    </svg>
+                    Back
+                </button>
+            </div>
             <div className="flex flex-wrap justify-between items-center gap-4 max-w-7xl mx-auto w-full">
                 <h1 className="text-4xl md:text-5xl font-extrabold text-[#433020] dark:text-gray-100 drop-shadow-sm">
                     Manage <span className="text-[#8a6144]">Employees</span>

@@ -153,7 +153,7 @@ const HrAnalytics = () => {
                 {/* Table */}
                 <div className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-md p-4 sm:p-10 rounded-[2rem] sm:rounded-[3rem] shadow-xl shadow-[#433020]/5 dark:shadow-black/20 border border-white/50 dark:border-gray-700 animate-fade-in max-w-7xl mx-auto">
                     <div className="mb-8 flex flex-col items-center md:items-start text-center md:text-left">
-                        <h2 className="text-3xl font-black text-[#433020] dark:text-gray-100 flex items-center gap-4">
+                        <h2 className="text-xl sm:text-3xl font-black text-[#433020] dark:text-gray-100 flex items-center gap-4">
                             📋 Performance Intelligence
                         </h2>
                         <p className="text-sm font-bold text-[#8a6144] dark:text-gray-400 font-sans mt-2 italic">

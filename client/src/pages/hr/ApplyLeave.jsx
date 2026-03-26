@@ -4,6 +4,7 @@ import Button from '../../hr-portal/components/Button.jsx';
 import Spinner from '../../hr-portal/components/Spinner.jsx';
 import { formatDate } from '../../hr-portal/utils/formatDate.js';
 import { motion } from 'framer-motion';
+import { useNavigate } from 'react-router-dom';
 import Layout from '../../components/Layout';
 
 const ApplyLeave = () => {
@@ -80,7 +81,7 @@ const ApplyLeave = () => {
 
                     {/* Form */}
                     <div className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-md rounded-3xl shadow-xl shadow-[#433020]/5 dark:shadow-black/20 border border-white/50 dark:border-gray-700 p-6 space-y-6 transition-all hover:shadow-2xl hover:shadow-[#433020]/10 dark:hover:shadow-black/30">
-                        <h2 className="text-2xl font-bold text-[#433020] dark:text-gray-100 flex items-center gap-2">
+                        <h2 className="text-lg md:text-2xl font-bold text-[#433020] dark:text-gray-100 flex items-center gap-2">
                             <span className="w-2 h-8 bg-[#8a6144] rounded-full inline-block"></span>
                             Apply for a New Leave
                         </h2>

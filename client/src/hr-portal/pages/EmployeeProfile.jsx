@@ -9,8 +9,10 @@ import Input from '../components/Input.jsx';
 import Button from '../components/Button.jsx';
 import axios from 'axios';
 import { motion } from 'framer-motion';
+import { useNavigate } from 'react-router-dom';
 
 const EmployeeProfile = () => {
+  const navigate = useNavigate();
   const { user, setUser } = useAuth();
   const [profile, setProfile] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -133,6 +135,16 @@ const EmployeeProfile = () => {
         transition={{ duration: 0.6 }}
         className="max-w-4xl mx-auto space-y-10"
       >
+        <button 
+          onClick={() => navigate(-1)} 
+          className="flex items-center gap-2 px-4 py-2 text-sm font-semibold border-2 border-[#8a6144]/30 text-[#8a6144] hover:bg-[#8a6144] hover:text-white transition-all duration-300 rounded-xl bg-white/50 backdrop-blur-sm"
+        >
+          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+          </svg>
+          Back
+        </button>
+
         <div className="flex flex-col md:flex-row items-center md:items-start space-y-4 md:space-y-0 md:space-x-6 text-center md:text-left">
           <div className="relative">
             <motion.img

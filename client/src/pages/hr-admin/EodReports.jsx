@@ -141,8 +141,8 @@ const EodReports = () => {
                     </div>
                 </div>
 
-                <div className="bg-orange-50 border-l-4 border-orange-500 p-6 rounded-r-2xl shadow-sm max-w-7xl mx-auto w-full">
-                    <h2 className="text-xl font-bold text-orange-800 mb-3">⚠️ Pending EOD Submissions for {formatDate(filterDate)}</h2>
+                <div className="bg-orange-50 border-l-4 border-orange-500 p-4 sm:p-6 rounded-r-2xl shadow-sm max-w-7xl mx-auto w-full">
+                    <h2 className="text-sm sm:text-xl font-bold text-orange-800 mb-3 leading-tight">⚠️ Pending EOD Submissions for {formatDate(filterDate)}</h2>
                     {notSubmitted.length > 0 ? (
                         <ul className="list-disc list-inside space-y-1">
                             {notSubmitted.map(emp => (

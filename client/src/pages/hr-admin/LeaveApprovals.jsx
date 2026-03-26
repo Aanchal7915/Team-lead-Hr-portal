@@ -57,7 +57,7 @@ const LeaveApprovals = () => {
         <Layout title="Pending Leave Requests">
             <Toaster position="top-right" />
             <div className="space-y-8 p-8 -m-4 md:-m-8 min-h-[calc(100vh-100px)] rounded-xl bg-gradient-to-br from-[#fff5e6] via-[#f5e6d3] to-[#fff5e6] dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 transition-colors duration-300">
-                <h1 className="text-4xl font-extrabold text-center text-[#433020] dark:text-gray-100 mb-8 mt-4 drop-shadow-sm">📋 Approve Leave Requests</h1>
+                <h1 className="text-xl sm:text-4xl font-extrabold text-center text-[#433020] dark:text-gray-100 mb-8 mt-4 drop-shadow-sm">📋 Approve Leave Requests</h1>
                 {leaves.length === 0 ? (
                     <p className="text-center text-[#8a6144] dark:text-gray-400 text-lg">No pending leave requests.</p>
                 ) : (
