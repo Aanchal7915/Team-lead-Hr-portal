@@ -41,7 +41,7 @@ const Sidebar = ({ isOpen, onClose }) => {
   const [pendingLeavesCount, setPendingLeavesCount] = useState(0);
   const location = useLocation();
 
-  useEffect(() => {
+    useEffect(() => {
     const fetchPendingLeaves = async () => {
       if (isAdmin || isHr) {
         try {
@@ -52,7 +52,10 @@ const Sidebar = ({ isOpen, onClose }) => {
         }
       }
     };
+    
     fetchPendingLeaves();
+    const interval = setInterval(fetchPendingLeaves, 5000); // 5 seconds
+    return () => clearInterval(interval);
   }, [isAdmin, isHr]);
 
   const adminMenuItems = [

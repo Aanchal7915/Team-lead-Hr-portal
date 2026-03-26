@@ -16,7 +16,8 @@ const notificationSchema = new mongoose.Schema({
             'follow_up_assigned',
             'follow_up_upcoming',
             'follow_up_overdue',
-            'lead_status_changed'
+            'lead_status_changed',
+            'leave_applied'
         ],
         required: true
     },

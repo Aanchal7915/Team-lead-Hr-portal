@@ -2,6 +2,8 @@ const Attendance = require('../models/Attendance');
 const Leave = require('../models/Leave');
 const SalarySlip = require('../models/SalarySlip');
 const Announcement = require('../models/Announcement');
+const Notification = require('../models/Notification');
+const User = require('../models/User');
 const cloudinary = require('cloudinary').v2;
 const LegacyEmployee = require('../hr-portal-backend/models/Employee');
 
@@ -180,6 +182,24 @@ exports.applyLeave = async (req, res) => {
         const leave = await Leave.create({
             employee, type, startDate, endDate, reason
         });
+
+        // Create notifications for HR and Admins
+        try {
+            const adminsAndHr = await User.find({ role: { $in: ['admin', 'hr'] } });
+            const notifications = adminsAndHr.map(admin => ({
+                type: 'leave_applied',
+                title: 'New Leave Request',
+                message: `${req.user.name} has applied for a leave.`,
+                userId: admin._id,
+                senderId: req.user.id,
+                priority: 'medium',
+                relatedTo: leave._id,
+                relatedToModel: 'User'
+            }));
+            await Notification.insertMany(notifications);
+        } catch (notifError) {
+            console.error('Error creating leave notification:', notifError);
+        }
 
         res.status(201).json({ success: true, data: leave });
     } catch (error) {
