@@ -220,7 +220,7 @@ const SalaryCalculatorPage = () => {
                                                 </p>
                                             </div>
                                             
-                                            <div className="bg-[#f9f9f9] dark:bg-gray-700/50 p-2.5 px-5 rounded-xl border border-gray-200 dark:border-gray-600 inline-block">
+                                            <div className="bg-[#f9f9f9] dark:bg-gray-700/50 p-2.5 px-5 rounded-xl border border-gray-200 dark:border-gray-600 inline-block max-w-[200px] sm:max-w-md overflow-x-auto whitespace-nowrap scrollbar-hide">
                                                 <p className="text-sm italic text-gray-500 dark:text-gray-400">
                                                     <span className="not-italic mr-2 font-medium">Notes:</span>{record.notes}
                                                 </p>
