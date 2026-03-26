@@ -94,7 +94,7 @@ const Navbar = ({ title = 'Dashboard', onMenuToggle = () => { }, isPublicPage = 
             </div>
 
             <div className="navbar-right">
-                {user && (
+                {user && !isPublicPage && (
                     <div className="navbar-user-controls">
                         <div className="notification-wrapper" ref={notificationRef}>
                             <button
@@ -171,7 +171,7 @@ const Navbar = ({ title = 'Dashboard', onMenuToggle = () => { }, isPublicPage = 
                     </div>
                 )}
 
-                {!user && (
+                {(!user || isPublicPage) && (
                     <div className="desktop-auth-buttons">
                         <button onClick={() => navigate('/login')} className="nav-login-btn">Login</button>
                         <button onClick={() => navigate('/register')} className="nav-register-btn">Sign Up</button>
@@ -180,7 +180,7 @@ const Navbar = ({ title = 'Dashboard', onMenuToggle = () => { }, isPublicPage = 
 
                 <div className="mobile-nav-wrapper" ref={mobileMenuRef}>
                     <div className={`mobile-dropdown ${showMobileMenu ? 'show' : ''}`}>
-                        {user ? (
+                        {user && !isPublicPage ? (
                             <>
                                 <div className="mobile-user-info">
                                     <div className="navbar-profile-avatar">
