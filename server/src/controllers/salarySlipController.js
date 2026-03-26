@@ -218,7 +218,8 @@ exports.updateSalarySlip = async (req, res) => {
             companyStamp,
             authorizedSignatoryImage,
             companyStampImage,
-            employeeExpenses
+            employeeExpenses,
+            baseSalary
         } = req.body;
 
         const salarySlip = await SalarySlip.findById(req.params.id);
@@ -226,6 +227,8 @@ exports.updateSalarySlip = async (req, res) => {
         if (!salarySlip) {
             return res.status(404).json({ success: false, message: 'Salary slip not found' });
         }
+
+        if (baseSalary !== undefined) salarySlip.baseSalary = baseSalary;
 
         if (adjustments) salarySlip.adjustments = adjustments;
         if (notes !== undefined) salarySlip.notes = notes;

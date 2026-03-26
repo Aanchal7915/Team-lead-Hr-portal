@@ -57,6 +57,7 @@ const SalarySlipManagement = () => {
     const [editEmployeeDetails, setEditEmployeeDetails] = useState({});
     const [editEmployeePhone, setEditEmployeePhone] = useState('');
     const [editEmployeeEmail, setEditEmployeeEmail] = useState('');
+    const [editBaseSalary, setEditBaseSalary] = useState(0);
     const [editAttendance, setEditAttendance] = useState({ totalWorkingDays: 0, presentDays: 0, absentDays: 0 });
     const [editPayments, setEditPayments] = useState([]);
     const [editEmployeeExpenses, setEditEmployeeExpenses] = useState([]);
@@ -148,6 +149,7 @@ const SalarySlipManagement = () => {
         setEditEmployeeDetails(slip.employeeBankDetails || {});
         setEditEmployeePhone(slip.employeePhone || '');
         setEditEmployeeEmail(slip.employeeEmail || '');
+        setEditBaseSalary(slip.baseSalary || 0);
         setEditAttendance(slip.attendance || { totalWorkingDays: 0, presentDays: 0, absentDays: 0 });
         setEditPayments(slip.payments || []);
         setEditEmployeeExpenses(slip.employeeExpenses || []);
@@ -161,6 +163,7 @@ const SalarySlipManagement = () => {
     const handleUpdateSlip = async () => {
         try {
             await api.put(`/salary-slips/${selectedSlip._id}`, {
+                baseSalary: editBaseSalary,
                 adjustments,
                 notes: editNotes,
                 companyName: editCompanyName,
@@ -735,7 +738,15 @@ const SalarySlipManagement = () => {
                                                 {/* Base Salary Row */}
                                                 <div className="flex justify-between items-center py-2 border-b border-dashed border-gray-200 dark:border-gray-700">
                                                     <span className="text-sm font-medium">Base Salary</span>
-                                                    <span className="font-semibold">₹{selectedSlip.baseSalary.toLocaleString()}</span>
+                                                    <div className="flex items-center gap-1">
+                                                        <span className="text-gray-400">₹</span>
+                                                        <input
+                                                            type="number"
+                                                            value={editBaseSalary}
+                                                            onChange={(e) => setEditBaseSalary(parseFloat(e.target.value) || 0)}
+                                                            className="w-24 text-right font-semibold bg-gray-50 border-b border-gray-300 focus:border-[#8a6144] focus:outline-none dark:bg-gray-700 dark:text-white rounded px-1"
+                                                        />
+                                                    </div>
                                                 </div>
 
                                                 {/* Adjustments Rows */}
@@ -788,7 +799,7 @@ const SalarySlipManagement = () => {
                                                     <div className="flex justify-between items-center text-sm">
                                                         <span className="text-gray-500 font-medium uppercase tracking-wider">Gross Salary</span>
                                                         <span className="font-bold text-gray-800">
-                                                            ₹{(selectedSlip.baseSalary + adjustments.reduce((sum, a) => a.type === 'addition' ? sum + (parseFloat(a.amount) || 0) : sum, 0)).toLocaleString()}
+                                                            ₹{(editBaseSalary + adjustments.reduce((sum, a) => a.type === 'addition' ? sum + (parseFloat(a.amount) || 0) : sum, 0)).toLocaleString()}
                                                         </span>
                                                     </div>
                                                     <div className="flex justify-between items-center text-sm">
@@ -800,7 +811,7 @@ const SalarySlipManagement = () => {
                                                     <div className="flex justify-between items-center mt-2 pt-2 border-t-2 border-[#8a6144]">
                                                         <span className="text-base font-bold text-[#8a6144] uppercase tracking-widest">Total Payable Amount</span>
                                                         <span className="text-xl font-black text-[#8a6144]">
-                                                            ₹{calculateNetSalary(selectedSlip.baseSalary, adjustments, editEmployeeExpenses).toLocaleString()}
+                                                            ₹{calculateNetSalary(editBaseSalary, adjustments, editEmployeeExpenses).toLocaleString()}
                                                         </span>
                                                     </div>
                                                 </div>
@@ -995,8 +1006,8 @@ const SalarySlipManagement = () => {
                                                         </tr>
                                                         <tr>
                                                             <td colSpan="3" className="px-4 py-2 text-right text-xs uppercase text-gray-500">Balance Due</td>
-                                                            <td className={`px - 4 py - 2 text - right ${Math.max(0, calculateNetSalary(selectedSlip.baseSalary, adjustments, editEmployeeExpenses) - editPayments.reduce((sum, p) => sum + (parseFloat(p.amount) || 0), 0)) > 0 ? 'text-red-500' : 'text-green-500'} `}>
-                                                                ₹{Math.max(0, calculateNetSalary(selectedSlip.baseSalary, adjustments, editEmployeeExpenses) - editPayments.reduce((sum, p) => sum + (parseFloat(p.amount) || 0), 0)).toLocaleString()}
+                                                            <td className={`px - 4 py - 2 text - right ${Math.max(0, calculateNetSalary(editBaseSalary, adjustments, editEmployeeExpenses) - editPayments.reduce((sum, p) => sum + (parseFloat(p.amount) || 0), 0)) > 0 ? 'text-red-500' : 'text-green-500'} `}>
+                                                                ₹{Math.max(0, calculateNetSalary(editBaseSalary, adjustments, editEmployeeExpenses) - editPayments.reduce((sum, p) => sum + (parseFloat(p.amount) || 0), 0)).toLocaleString()}
                                                             </td>
                                                             <td></td>
                                                         </tr>
