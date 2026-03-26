@@ -528,25 +528,7 @@ const EmployeeDashboard = () => {
         return monthMatch && yearMatch;
     });
 
-    // Mobile restriction
-    if (isMobile) {
-        return (
-            <div className="flex flex-col items-center justify-center min-h-screen text-center p-6 bg-gradient-to-br from-[#fff5e6] to-[#f5e6d3] dark:from-gray-900 dark:to-black">
-                <div className="bg-white/80 backdrop-blur-md dark:bg-gray-800 p-8 rounded-3xl shadow-xl border border-white/50 max-w-sm">
-                    <div className="text-red-500 text-6xl mb-4 text-center flex justify-center">🚫</div>
-                    <h1 className="text-2xl font-bold text-[#433020] dark:text-white mb-4">Access Restricted</h1>
-                    <p className="text-[#8a6144] dark:text-gray-300">
-                        The Employee Dashboard is restricted on mobile devices. Please use a desktop computer to manage your attendance and view reports.
-                    </p>
-                    <div className="mt-6 pt-6 border-t border-gray-200 dark:border-gray-700">
-                        <p className="text-xs text-gray-500 dark:text-gray-400 italic">
-                            Authorized access only via Desktop Systems.
-                        </p>
-                    </div>
-                </div>
-            </div>
-        );
-    }
+    // Mobile restriction removed
 
     if (loading) return (
         <div className="flex justify-center items-center min-h-screen bg-gradient-to-br from-[#fff5e6] via-white to-[#f5e6d3] dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
