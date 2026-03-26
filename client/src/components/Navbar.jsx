@@ -294,6 +294,9 @@ const Navbar = ({ title = 'Dashboard', onMenuToggle = () => { }, isPublicPage = 
                     .hamburger-btn {
                         display: block;
                     }
+                    .public-hamburger-btn {
+                        display: block !important;
+                    }
                     .navbar-profile-info {
                         display: none;
                     }
@@ -305,7 +308,7 @@ const Navbar = ({ title = 'Dashboard', onMenuToggle = () => { }, isPublicPage = 
                         gap: 10px !important;
                     }
                     .navbar-icon-btn, .navbar-profile-avatar, .navbar-profile > svg {
-                        display: ${user ? 'flex' : 'none'} !important;
+                        display: ${user && !isPublicPage ? 'flex' : 'none'} !important;
                     }
                     .navbar-right {
                         gap: 12px;
@@ -313,6 +316,7 @@ const Navbar = ({ title = 'Dashboard', onMenuToggle = () => { }, isPublicPage = 
                     .navbar-profile {
                         gap: 4px;
                         padding: 2px 4px;
+                        display: ${user && !isPublicPage ? 'flex' : 'none'} !important;
                     }
                     .auth-buttons {
                         display: none;
