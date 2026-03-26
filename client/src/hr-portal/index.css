@@ -1,0 +1,55 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+.nav-item {
+  @apply text-gray-700 hover:text-indigo-600 px-3 py-2 rounded-md text-sm font-medium transition duration-200;
+}
+
+.mobile-link {
+  @apply block text-gray-700 hover:text-indigo-600 px-3 py-2 rounded-md text-base font-medium;
+}
+
+/* globals.css */
+body {
+  @apply transition-colors duration-500;
+}
+
+html.light body {
+  background-image: theme('backgroundImage.gradient-light');
+}
+
+html.dark body {
+  background-image: theme('backgroundImage.gradient-dark');
+}
+
+/* Custom Animations */
+@keyframes slide-in-roll {
+  0% {
+    opacity: 0;
+    transform: translateX(-50px) rotate(-180deg);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateX(0) rotate(0deg);
+  }
+}
+
+.animate-slide-in-roll {
+  animation: slide-in-roll 0.6s ease-out;
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.no-scrollbar {
+  -ms-overflow-style: none;
+  /* IE and Edge */
+  scrollbar-width: none;
+  /* Firefox */
+}
