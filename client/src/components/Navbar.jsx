@@ -171,6 +171,13 @@ const Navbar = ({ title = 'Dashboard', onMenuToggle = () => { }, isPublicPage = 
                     </div>
                 )}
 
+                {!user && (
+                    <div className="desktop-auth-buttons">
+                        <button onClick={() => navigate('/login')} className="nav-login-btn">Login</button>
+                        <button onClick={() => navigate('/register')} className="nav-register-btn">Sign Up</button>
+                    </div>
+                )}
+
                 <div className="mobile-nav-wrapper" ref={mobileMenuRef}>
                     <div className={`mobile-dropdown ${showMobileMenu ? 'show' : ''}`}>
                         {user ? (
@@ -316,6 +323,11 @@ const Navbar = ({ title = 'Dashboard', onMenuToggle = () => { }, isPublicPage = 
                     align-items: center;
                     gap: 16px;
                 }
+                .desktop-auth-buttons {
+                    display: flex;
+                    align-items: center;
+                    gap: 12px;
+                }
                 .mobile-nav-wrapper {
                     display: none;
                     position: relative;
@@ -394,7 +406,7 @@ const Navbar = ({ title = 'Dashboard', onMenuToggle = () => { }, isPublicPage = 
                     .hamburger-btn {
                         display: none !important;
                     }
-                    .navbar-user-controls {
+                    .navbar-user-controls, .desktop-auth-buttons {
                         display: none;
                     }
                     .mobile-nav-wrapper {
@@ -412,15 +424,24 @@ const Navbar = ({ title = 'Dashboard', onMenuToggle = () => { }, isPublicPage = 
                 }
                 
                 .nav-login-btn, .nav-register-btn {
-                    padding: 10px 16px;
+                    padding: 10px 20px;
                     border-radius: 50px;
                     font-weight: 600;
                     font-size: 0.9rem;
                     cursor: pointer;
                     transition: all 0.3s ease;
-                    width: 100%;
                     text-align: center;
+                    white-space: nowrap;
                 }
+                .desktop-auth-buttons .nav-login-btn, 
+                .desktop-auth-buttons .nav-register-btn {
+                    width: auto;
+                }
+                .mobile-dropdown .nav-login-btn, 
+                .mobile-dropdown .nav-register-btn {
+                    width: 100%;
+                }
+
                 .nav-login-btn {
                     background: transparent;
                     border: 1px solid var(--primary-100);
