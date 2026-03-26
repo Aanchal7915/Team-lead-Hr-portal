@@ -199,10 +199,8 @@ const EodReports = () => {
                             </div>
                             <div>
                                 <p className="text-[10px] font-bold text-[#8a6144] uppercase tracking-widest mb-2 px-1">Detailed Report</p>
-                                <div className="text-[#433020] dark:text-gray-200 bg-white/50 dark:bg-gray-900/50 p-5 rounded-2xl border border-[#8a6144]/15 shadow-inner min-h-[150px] max-h-[400px] overflow-auto leading-relaxed scrollbar-thin scrollbar-thumb-[#8a6144]/30 scrollbar-track-transparent">
-                                    <pre className="whitespace-pre font-sans">
-                                        {selectedEod.eod}
-                                    </pre>
+                                <div className="text-[#433020] dark:text-gray-200 bg-white/50 dark:bg-gray-900/50 p-5 rounded-2xl border border-[#8a6144]/15 shadow-inner min-h-[150px] max-h-[400px] overflow-y-scroll whitespace-pre-wrap break-words leading-relaxed scrollbar-thin scrollbar-thumb-[#8a6144]/30 scrollbar-track-transparent">
+                                    {selectedEod.eod}
                                 </div>
                             </div>
                         </div>
