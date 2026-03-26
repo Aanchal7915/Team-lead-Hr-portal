@@ -1,6 +1,5 @@
-// src/context/AuthContext.js
 import React, { createContext, useState, useEffect } from 'react';
-import api from '../api/api.js';
+import api, { authApi } from '../api/api.js';
 
 const AuthContext = createContext(null);
 
@@ -35,8 +34,9 @@ export const AuthProvider = ({ children }) => {
       // Detect if device has touch capability
       requestBody.isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
     }
-
-    const { data } = await api.post(url, requestBody);
+    
+    // Use authApi for login
+    const { data } = await authApi.post(url, requestBody);
     if (data) {
       const userData = { ...data, role };
       localStorage.setItem('userInfo', JSON.stringify(userData));
@@ -46,19 +46,21 @@ export const AuthProvider = ({ children }) => {
 
   // --- NEW OTP REGISTRATION FUNCTIONS ---
   const requestRegistrationOtp = async (userData) => {
-    // This just sends the request, doesn't log the user in
-    const { data } = await api.post('/auth/register/request-otp', userData);
+    // Use authApi for registration
+    const { data } = await authApi.post('/auth/register/request-otp', userData);
     return data; // Return the success message
   };
 
   const registerHR = async ({ name, email, password }) => {
-    const { data } = await api.post('/auth/register-hr', { name, email, password });
+    // Use authApi for HR registration
+    const { data } = await authApi.post('/auth/register-hr', { name, email, password });
     localStorage.setItem('userInfo', JSON.stringify({ ...data, role: 'hr' }));
     setUser({ ...data, role: 'hr' });
   };
 
   const verifyAndRegister = async (email, otp) => {
-    const { data } = await api.post('/auth/register/verify', { email, otp });
+    // Use authApi for verification
+    const { data } = await authApi.post('/auth/register/verify', { email, otp });
     if (data) {
       const newUserData = { ...data, role: 'employee' };
       localStorage.setItem('userInfo', JSON.stringify(newUserData));
@@ -68,12 +70,14 @@ export const AuthProvider = ({ children }) => {
 
   // --- NEW OTP PASSWORD RESET FUNCTIONS ---
   const forgotPassword = async (email) => {
-    const { data } = await api.post('/auth/forgotpassword', { email });
+    // Use authApi for password reset
+    const { data } = await authApi.post('/auth/forgotpassword', { email });
     return data;
   };
 
   const resetPassword = async (email, otp, password) => {
-    const { data } = await api.put('/auth/resetpassword', { email, otp, password });
+    // Use authApi for password reset
+    const { data } = await authApi.put('/auth/resetpassword', { email, otp, password });
     return data;
   };
 

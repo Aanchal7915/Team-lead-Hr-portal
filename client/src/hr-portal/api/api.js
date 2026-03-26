@@ -1,9 +1,14 @@
 import axios from 'axios';
 
 const api = axios.create({
-  // Use the nested HR Portal URL natively via absolute or relative mounting
   baseURL: (import.meta.env.VITE_API_URL || 'http://localhost:5001/api') + '/hr-portal',
+  headers: {
+    'Content-Type': 'application/json',
+  },
+});
 
+export const authApi = axios.create({
+  baseURL: import.meta.env.VITE_API_URL || 'http://localhost:5001/api',
   headers: {
     'Content-Type': 'application/json',
   },
