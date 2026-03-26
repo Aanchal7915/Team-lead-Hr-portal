@@ -41,6 +41,8 @@ app.use(
       "https://gaonseghartaprojectmanagement.avanienterprises.in",
       "https://dakshprojectmanagement.avanienterprises.in",
       "https://www.dakshprojectmanagement.avanienterprises.in",
+      "https://team-lead-hr-portal.vercel.app",
+      "https://team-lead-hr-portal.vercel.app/",
       // "https://www.gaonseghartaprojectmanagement.avanienterprises.in",
     ],
     credentials: true,
